@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+        background-image: url(../image/background1.jpg);
+        background-size: cover;
+      }
+      .login-container {
+        width: 300px;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        position: relative;
+      }
+
+      .login-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333333;
+      }
+
+      .login-container input[type="text"],
+      .login-container input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      .toggle-password {
+        position: absolute;
+        right: 30px;
+        top: 118px;
+        cursor: pointer;
+        font-size: 14px;
+        color: #777;
+      }
+
+      .login-container button {
+        width: 100%;
+        padding: 10px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      .login-container button.loading {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+
+      .login-container button.loading:after {
+        content: "...";
+        animation: loadingDots 1s infinite;
+      }
+
+      .login-container .message {
+        text-align: center;
+        margin-top: 20px;
+        color: #777;
+      }
+
+      /* Optional content styling */
+      .content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        text-align: center;
+      }
+      @keyframes loadingDots {
+        0% {
+          content: "";
+        }
+        33% {
+          content: ".";
+        }
+        66% {
+          content: "..";
+        }
+        100% {
+          content: "...";
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <h2>Oscar</h2>
+      <form id="loginForm">
+        <input type="text" id="username" placeholder="Username" required />
+        <input type="password" id="password" placeholder="Password" required />
+        <span class="toggle-password" onclick="togglePassword()">Show</span>
+        <button type="submit" id="loginButton">Login</button>
+      </form>
+      <div class="message">
+        <p>Don't have an account? <a href="#">Sign up</a></p>
+      </div>
+    </div>
+
+    <script>
+      // Toggle password visibility
+      function togglePassword() {
+        const passwordField = document.getElementById("password");
+        const toggleBtn = document.querySelector(".toggle-password");
+        if (passwordField.type === "password") {
+          passwordField.type = "text";
+          toggleBtn.textContent = "Hide";
+        } else {
+          passwordField.type = "password";
+          toggleBtn.textContent = "Show";
+        }
+      }
+
+      // Form submission with validation and loading effect
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent form submission
+
+          const username = document.getElementById("username").value;
+          const password = document.getElementById("password").value;
+          const loginButton = document.getElementById("loginButton");
+
+          if (!username || !password) {
+            alert("Please enter both username and password.");
+            return;
+          }
+
+          // Start loading effect
+          loginButton.classList.add("loading");
+          loginButton.disabled = true;
+
+          // Simulate a login request (e.g., 2 seconds)
+          setTimeout(() => {
+            alert("Login successful!");
+            loginButton.classList.remove("loading");
+            loginButton.disabled = false;
+            // You can redirect the user here or clear the form, etc.
+            // window.location.href = "dashboard.html"; // Example redirect
+          }, 2000);
+        });
+    </script>
+  </body>
+</html>
